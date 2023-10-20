@@ -1,63 +1,46 @@
-/* eslint-disable react/no-unescaped-entities */
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable @next/next/no-img-element */
 'use client'
-import { useForm } from "react-hook-form";
-import Link from "next/link";
-import React, { useState, useEffect } from "react";
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable @next/next/no-img-element */
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { SomeSpecificError, AnotherSpecificError } from "@/helpers/errorHandler";
 
 
-export default function bookAnEventSignUpPage() { // Rename the function with capitalization
-
+export default function BookAnEventSignUpPage() {
+    
   const router = useRouter();
-  const [bookAnEventUser, setbookAnEventUser] = useState({
+
+  const [bookAnEventUser, setBookAnEventUser] = useState({
+    username: "",
     email: "",
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
   });
 
-  const [buttonDisabled, setButtonDisabled] = useState(false); // Correct the variable name
-  
 
-  const [Loading, setLoading] = useState(false);
 
- 
-  const onbookAnEventSignup = async () => {
+  const onBookAnEventSignup = async () => {
     try {
-      setLoading(true);
-  
+      
+
       const response = await axios.post('/api/user/BookAnEventSignUp', bookAnEventUser);
       console.log("Sign up Success", response.data);
-  
+
       toast.success('Sign up successful');
+      alert("Sign up successful");
       router.push("/BookAnEvent/login");
     } catch (error: any) {
-      if (error instanceof SomeSpecificError) {
-      } else if (error instanceof AnotherSpecificError) {
-      } else {
-        console.error("Sign up Failed", error.message);
-        toast.error(error.message);
-        setLoading(false);
-      }
+      console.error("Sign up Failed", error.message);
+      alert("Signup Failed")
+      toast.error(error.message);
+      
     }
   };
-      
-  useEffect(() => {
-    if(bookAnEventUser.email.length > 0 && bookAnEventUser.password.length > 0) {
-      setButtonDisabled(false);
-    } else {
-      setButtonDisabled(true);
-    }
-  }, [bookAnEventUser]);
+
+
 
   const isPasswordMatch = bookAnEventUser.password === bookAnEventUser.confirmPassword;
-
-  const { register, handleSubmit, formState: { errors } } = useForm();
 
   return (
     <>
@@ -70,7 +53,7 @@ export default function bookAnEventSignUpPage() { // Rename the function with ca
             </div>
             <div className="mt-12 flex flex-col items-center">
                 <h1 className="text-2xl xl:text-3xl font-extrabold">
-                    { Loading ? "Processing" : "Sign up"}
+                    Sign up
                 </h1>
                 <div className="w-full flex-1 mt-8">
                     <div className="flex flex-col items-center">
@@ -120,25 +103,46 @@ export default function bookAnEventSignUpPage() { // Rename the function with ca
 
                 
                     
-                    <form onSubmit={handleSubmit(onbookAnEventSignup)}></form>
+               
                     <input
                             className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-black placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
                             type="username" 
                             placeholder="username"
                             name="username" 
-                            required autoComplete="username"/>
+                            required autoComplete="username" 
+                            onChange={(e) =>
+                                setBookAnEventUser({
+                                    ...bookAnEventUser,
+                                    username: e.target.value,
+                                })
+                                }
+                            />
                         <input
                             className="mt-4 w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-black placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
                             type="email" 
                             placeholder="Email"
                             name="email" 
-                            required autoComplete="email"/>
+                            required autoComplete="email"
+                            onChange={(e) =>
+                                setBookAnEventUser({
+                                    ...bookAnEventUser,
+                                    email: e.target.value,
+                                })
+                                }
+                            />
                         <input
                             className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-black placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
                             type="password"
                              placeholder="Password"
                              name="password"
-                             required autoComplete="password"/>
+                             required autoComplete="password"
+                             onChange={(e) =>
+                                setBookAnEventUser({
+                                    ...bookAnEventUser,
+                                    password: e.target.value,
+                                })
+                                }
+                             />
                              <input
                                 className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-black placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
                                 type="password"
@@ -146,7 +150,7 @@ export default function bookAnEventSignUpPage() { // Rename the function with ca
                                 name="confirmPassword"
                                 value={bookAnEventUser.confirmPassword}
                                 onChange={(e) =>
-                                setbookAnEventUser({
+                                setBookAnEventUser({
                                     ...bookAnEventUser,
                                     confirmPassword: e.target.value,
                                 })
@@ -162,7 +166,7 @@ export default function bookAnEventSignUpPage() { // Rename the function with ca
                             <div className="text-red-500">Passwords do not match.</div>
                             )}
                           
-                        <button onClick={onbookAnEventSignup}
+                        <button onClick={onBookAnEventSignup}
                             className="mt-5 tracking-wide font-semibold bg-blue text-white w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
                             <svg className="w-6 h-6 -ml-2" fill="none" stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round">
@@ -174,9 +178,13 @@ export default function bookAnEventSignUpPage() { // Rename the function with ca
                                 Sign Up
                             </span>
                         </button>
-                      
-                            <p className="mt-4 text-center text-sm text-[#636262]">Already have an account? <Link href="./login" className="text-sm font-bold text-black">Login now </Link>
-                        </p>
+                                                            <div className="mt-4 text-center text-sm text-[#636262]">
+                                    Already have an account?{" "}
+                                    <a href="/BookAnEvent/login">
+                                        <a className="text-sm font-bold text-black">Login now</a>
+                                    </a>
+                                    </div>
+
                     </div>
                 </div>
             </div>

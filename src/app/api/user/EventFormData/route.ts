@@ -1,11 +1,12 @@
+// Import necessary modules and models
 import { connect } from "@/dbConfig/eventFormData";
 import EventFormData from "@/models/eventFormDataModels";
 import { NextRequest, NextResponse } from 'next/server';
 
-connect();
+// Establish a connection to the database
+connect()
 
 export async function POST(request: NextRequest) {
-  
   try {
     const reqBody = await request.json();
     const {
@@ -17,10 +18,15 @@ export async function POST(request: NextRequest) {
       time,
     } = reqBody;
 
+    // Validate the request data
     if (!organizerName || !eventName || !eventDate) {
-      return NextResponse.json({ error: "All required fields must be filled" }, { status: 400 });
+      return NextResponse.json(
+        { error: "All required fields must be filled" },
+        { status: 400 }
+      );
     }
 
+    // Create a new eventFormData document
     const newEventFormData = new EventFormData({
       organizerName,
       eventName,
@@ -30,22 +36,20 @@ export async function POST(request: NextRequest) {
       time,
     });
 
+    // Save the event data to the database
     const savedEventFormData = await newEventFormData.save();
 
     return NextResponse.json({
       message: "Event details saved successfully",
       success: true,
-      savedEventFormData
-  })
+      savedEventFormData,
+    });
+  } catch (error) {
+    console.error('Event Data Not Saved', error);
 
- 
-
-
-} catch (error: any) {
-  return NextResponse.json({error: error.message},
-      {status: 500}
-  )
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
 }
-}
-
-    
