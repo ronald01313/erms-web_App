@@ -2,7 +2,8 @@ import { connect } from "@/dbConfig/eventAttendeesConfig";
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
-import bookAnEventUser from "@/models/bookAnEventUserModels";
+import bookAnEventUser from '@/models/bookAnEventUserModels';
+
 
 connect();
 
