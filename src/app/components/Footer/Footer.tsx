@@ -3,7 +3,7 @@
 /* eslint-disable @next/next/no-img-element */
 'use client'
 
-import { Link } from "react-router-dom"
+
 
 export default function Footer() {
     return (
