@@ -1,5 +1,5 @@
 // Import necessary modules and models
-import { connect } from "@/dbConfig/eventFormData";
+import { connect } from "@/dbConfig/dbConfig";
 import EventFormData from "@/models/eventFormDataModels";
 import { NextRequest, NextResponse } from 'next/server';
 
