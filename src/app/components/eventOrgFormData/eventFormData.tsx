@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-'use client'; // Corrected the 'use' statement
+'use client' // Corrected the 'use' statement
 
 import React, { useState } from 'react';
 import axios from "axios";
