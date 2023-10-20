@@ -4,7 +4,7 @@
 
 export default function Navbar() {
 
-  const tabIndexValue: number = 0;
+  
     return (
         <div>
             
@@ -27,9 +27,7 @@ export default function Navbar() {
        
       </nav>
       <div
-  className="relative float-right hidden cursor-pointer select-none p-3 text-2xl max-[991px]:z-[9999] max-[991px]:-mr-3 max-[991px]:block max-[991px]:text-white lg:p-[18px]"
-  tabIndex={tabIndexValue}
->
+  className="relative float-right hidden cursor-pointer select-none p-3 text-2xl max-[991px]:z-[9999] max-[991px]:-mr-3 max-[991px]:block max-[991px]:text-white lg:p-[18px]">
 
 
 
