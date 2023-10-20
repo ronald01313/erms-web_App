@@ -21,7 +21,7 @@ export default function BookAnEventLoginPage() {
 
       if (response.data.success) {
         alert("Successfully Logged In");
-        router.push("/BookAnEventProfile");
+        router.push("/BookFormData");
       } else {
         console.log("Login failed - User not registered.");
         alert("You have not yet registered. Please Sign up.");

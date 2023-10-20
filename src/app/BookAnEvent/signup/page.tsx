@@ -22,8 +22,6 @@ export default function BookAnEventSignUpPage() {
 
   const onBookAnEventSignup = async () => {
     try {
-      
-
       const response = await axios.post('/api/user/BookAnEventSignUp', bookAnEventUser);
       console.log("Sign up Success", response.data);
 
