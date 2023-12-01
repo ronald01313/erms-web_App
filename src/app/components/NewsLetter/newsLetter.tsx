@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-"use client"
+'use client'
 
 export default function newsLetter() {
     return(

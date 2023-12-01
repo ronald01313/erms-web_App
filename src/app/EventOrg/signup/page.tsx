@@ -7,11 +7,6 @@ import axios from "axios";
 import error from "next/error";
 
 
-
-
-
-
-
 export default function EventOrgSignUpPage() {
 
     // Create a toaster object

@@ -41,22 +41,22 @@ export async function POST(request: NextRequest) {
     const hashedPassword = await bcryptjs.hash(password, salt);
 
     // Create a new user profile
-    const newbookAnEventUser = new bookAnEventUser({
+    const newBookAnEventUser = new bookAnEventUser({
       username,
       email,
       password: hashedPassword,
     });
 
     // Save the new user profile to the database
-    const savedbookAnEventUser = await newbookAnEventUser.save();
-    console.log('Saved successfully:', savedbookAnEventUser);
+    const savedBookAnEventUser = await newBookAnEventUser.save();
+    console.log('Saved successfully:', savedBookAnEventUser);
 
     // TODO: Send a verification email
 
     return NextResponse.json({
       message: "Event User Profile created Successfully",
       success: true,
-      savedbookAnEventUser,
+      savedBookAnEventUser,
     });
   } catch (error: any) {
     // Handle different types of errors here

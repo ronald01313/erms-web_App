@@ -32,7 +32,7 @@ export default function EventOrgLoginPage() {
     
         if (response.data.success) {
           alert("Successfully Login");
-          router.push("/EventOrgProfile");
+          router.push('/EventOrgProfile');
         } else {
           console.log("Login failed - User not registered.");
           alert("You have not yet registered. Please Sign up.");
@@ -95,7 +95,7 @@ export default function EventOrgLoginPage() {
 
               
               <a href="#" className="flex max-w-full grid-cols-2 flex-row items-center justify-center bg-[#276ef1] px-8 py-4 text-center font-semibold text-white transition [box-shadow:rgb(171,_196,_245)_-8px_8px] hover:[box-shadow:rgb(171,_196,_245)_0px_0px]">
-                <div 
+                <div
                 onClick={onEventOrgLogin}
                 className="mr-6 font-bold">Log in</div>
                 <div className="h-4 w-4 flex-none">

@@ -15,21 +15,24 @@ const eventFormDataSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
-  eventTime: {
+  time: {
     type: String,
     required: true,
   },
-  eventLocation: {
+  location: {
     type: String,
     required: true,
   },
-  attendees: {
+  numberOfAttendees: {
     type: Number,
     required: true,
   },
 })
 
 // Create a Mongoose model for EventFormData
-const EventFormData = mongoose.model('eventformdatas', eventFormDataSchema);
 
-export default EventFormData;
+
+const eventFormData  = mongoose.models.eventFormData || mongoose.model
+("eventFormData", eventFormDataSchema);
+
+export default eventFormData;

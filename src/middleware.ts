@@ -9,7 +9,6 @@ export function middleware(request: NextRequest) {
 
     const isPublicPath = path === '/EventOrg/login' || path === '/EventOrg/signup' || path === '/verifyemail'
 
-
     const token = request.cookies.get('token')?.value || ''
 
     if(isPublicPath && token) {
@@ -28,7 +27,8 @@ export const config = {
     '/profile',
     '/login',
     '/signup',
-    '/verifyemail'
+    '/verifyemail',
+
 
     ]
 }

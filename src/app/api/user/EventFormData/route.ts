@@ -1,10 +1,10 @@
 // Import necessary modules and models
 import { connect } from "@/dbConfig/dbConfig";
-import EventFormData from "@/models/eventFormDataModels";
+import eventFormData from "@/models/eventFormDataModels";
 import { NextRequest, NextResponse } from 'next/server';
 
 // Establish a connection to the database
-connect()
+connect();
 
 export async function POST(request: NextRequest) {
   try {
@@ -25,9 +25,10 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+    
 
     // Create a new eventFormData document
-    const newEventFormData = new EventFormData({
+    const newEventFormData = new eventFormData({
       organizerName,
       eventName,
       numberOfAttendees,

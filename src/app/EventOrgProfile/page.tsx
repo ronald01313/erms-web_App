@@ -6,11 +6,9 @@ import toast, { Toaster } from "react-hot-toast"; // Import toast and Toaster
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-export default function eventOrgProfilePage() {
+export default function EventOrgProfilePage() {
   const router = useRouter();
   const [data, setData] = useState("nothing");
-
-  
 
   const getUserDetails = async () => {
     try {
@@ -33,17 +31,16 @@ export default function eventOrgProfilePage() {
       <p>Dashboard</p>
      
       <h2 className="mt-4 inline-block relative">
-  {data === 'nothing' ? (
-    <span className="bg-blue text-white py-2 px-4 rounded-lg">Nothing</span>
-  ) : (
-    <Link href={`/EventOrgProfile/${data}`}>
-      <span className="bg-blue text-blue-50 py-2 px-4 mt-4 rounded-lg hover:bg-blue-600">
-        {data}
-      </span>
-    </Link>
-  )}
-</h2>
-
+        {data === 'nothing' ? (
+          <span className="bg-blue text-white py-2 px-4 rounded-lg">Nothing</span>
+        ) : (
+          <Link href={`/EventOrgProfile/${data}`}>
+            <span className="bg-blue text-blue-50 py-2 px-4 mt-4 rounded-lg hover:bg-blue-600">
+              {data}
+            </span>
+          </Link>
+        )}
+      </h2>
 
       <hr />
     
@@ -53,3 +50,4 @@ export default function eventOrgProfilePage() {
     </div>
   );
 }
+
