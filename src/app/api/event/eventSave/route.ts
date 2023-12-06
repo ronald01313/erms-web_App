@@ -1,21 +1,24 @@
 // pages/api/events.ts
-import { NextApiRequest, NextApiResponse } from 'next';
-import { connect } from '@/dbConfig/dbConfig'; // Import your MongoDB connection
-import { Event } from '@/types'; // Import your Event interface
-import eventSave from '@/models/eventFormDataModels'; // Import your eventSave model
+import { NextRequest, NextResponse } from "next/server";
+import event from "@/models/eventFormDataModels";
+import { connect } from "@/dbConfig/dbConfig";
 
-connect(); // Connect to MongoDB
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === 'GET') {
+connect();
+
+export async function GET(request: NextRequest) {
+
     try {
-      const eventData: Event[] = await eventSave.find({}).lean(); // Fetch all event data from MongoDB
-
-      res.status(200).json(eventData);
-    } catch (error) {
-      res.status(500).json({ error: 'Error fetching data from MongoDB' });
+        
+        const user = await event.findOne({_id: event}).
+        select("-password");
+        return NextResponse.json({
+            message: "Event found",
+            data: event
+        })
+    } catch (error: any) {
+        return NextResponse.json({error: error.message},{status: 400});
     }
-  } else {
-    res.status(405).json({ error: 'Method Not Allowed' });
-  }
 }
+
+

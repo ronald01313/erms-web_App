@@ -2,6 +2,8 @@
 
 "use client"
 
+import Link from "next/link"
+
 export default function Navbar() {
 
   
@@ -24,6 +26,12 @@ export default function Navbar() {
   <a href="./ourTeam" className="px-5 py-2 text-white transition hover:text-[#2CD3E1] max-[991px]:block md:px-10 lg:px-4">Our Team</a>
 </div>
 
+       {/* Button at the top right */}
+       <div className="ml-auto flex items-center">
+              <Link href="https://docs.google.com/forms/d/e/1FAIpQLScFIaB4XV-hDnZYCcJu8i5csmbdtRvEtMyXKo_kztqmUzjOTQ/viewform"
+                className="px-4 py-2 bg-purple text-blue-300 rounded-full">Review our System
+              </Link>
+            </div>
        
       </nav>
       <div
@@ -41,6 +49,9 @@ export default function Navbar() {
           </svg>
         </div>
       </div>
+
+       
+
     </div>
   </div>
 </div>

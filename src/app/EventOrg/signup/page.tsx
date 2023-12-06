@@ -65,10 +65,15 @@ export default function EventOrgSignUpPage() {
             
 <div className="grid h-auto grid-cols-1 gap-[0px] md:h-screen md:grid-cols-2">
   <div className="flex flex-col items-center justify-center bg-white">
-    <div className="px-5 md:px-10">
-      <div className="py-16 md:py-24 lg:py-32">
-        <div className="max-w-[480px] text-center md:max-w-[480px]">
-          <h2 className="mb-8 text-3xl font-bold md:mb-12 md:text-5xl lg:mb-16">{Loading ? "Processing" : "Event Organizer"}</h2>
+  <div className="px-8 md:px-12 lg:px-16">
+      <div className="py-0 md:py-0 lg:py-0">
+        <div className="max-w-[480px] text-center md:max-w-[480px] mb-24">
+        <div>
+        <a href="http://localhost:3000">
+        <img alt="" src="https://i.ibb.co/9gCbPKK/logo.png" className="w-48  mx-auto mb-20" />
+    </a>
+</div>
+<h2 className="mt-4 mb-8 text-3xl font-bold md:mb-12 md:text-5xl lg:mb-50">{Loading ? "Processing" : "Event Organizer"}</h2>
           <div className="mx-auto mb-4 max-w-[400px] pb-4">
             <form name="wf-form-password" method="get">
               
@@ -148,7 +153,7 @@ export default function EventOrgSignUpPage() {
   onClick={onEventOrgSignup}
 >
   <div className="mr-6 font-bold col">
-    {buttonDisabled ? "No Sign Up" : "Sign Up"}
+    {buttonDisabled ? "Sign Up" : "Sign Up"}
     
   </div>
   <div className="h-4 w-4 flex-none">

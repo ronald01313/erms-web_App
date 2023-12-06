@@ -1,96 +1,132 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable @next/next/no-img-element */
-'use client'
+"use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
+import { useEffect } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import NextImage from "next/image";
 
 export default function BookAnEventLoginPage() {
+
   const router = useRouter();
-  const [bookAnEventUser, setBookAnEventUser] = useState({
-    email: "",
-    password: "",
-  });
+     
+    const [bookAnEventUser, setBookAnEventUser] = React.useState({
+        email: "",
+        password: "",
+    })
 
-  const onBookAnEventUserLogin = async () => {
-    try {
-      const response = await axios.post("/api/user/BookAnEventLogin", bookAnEventUser);
-      console.log("Login success", response.data);
+    const [buttonDisabled, setButtonDisabled] = React.
+    useState(false);
 
-      if (response.data.success) {
-        alert("Successfully Logged In");
-        router.push("/BookFormData");
-      } else {
-        console.log("Login failed - User not registered.");
-        alert("You have not yet registered. Please Sign up.");
+    const [Loading, setLoading] = React.useState(false);
+
+
+
+    const onBookAnEventUserLogin  = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.post("/api/user/BookAnEventLogin", bookAnEventUser);
+        console.log("Login Success", response.data);
+    
+        if (response.data.success) {
+          alert("Successfully Logged In");
+          router.push('/BookFormData');
+        } else {
+          console.log("Login failed - User not registered.");
+          alert("You have not yet registered. Please Sign up.");
+        }
+      } catch (error: any) {
+        console.log("Login failed", error.message);
+        toast.error(error.message);
+      } finally {
+        setLoading(false);
       }
-    } catch (error: any) {
-      console.log("Login failed", error.message);
-      toast.error(error.message);
-    }
-  };
+    };
+    
 
-  return (
-    <div className="py-16 mt-36">
-      <div className="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
-      <div className="hidden lg:block lg:w-1/2 bg-cover bg-center" style={{ backgroundImage: "url('https://i.ibb.co/LCdvKYf/11.png')" }}></div>
-        <div className="w-full p-8 lg:w-1/2">
-        <img src="https://i.ibb.co/9gCbPKK/logo.png" alt="logo" className="mx-auto" />
-          <h2 className="text-2xl font-semibold text-gray-700 text-center"></h2>
-          <p className="text-xl text-gray-600 text-center">Welcome back!</p>
-          <a href="#" className="flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100">
-            <div className="px-4 py-3">
-              <svg className="h-6 w-6" viewBox="0 0 40 40">
-                <path d="... your path here ..." fill="#FFC107" />
-              </svg>
-            </div>
-            <h1 className="px-4 py-3 w-5/6 text-center text-gray-600 font-bold">Sign in with Google</h1>
-          </a>
-          <div className="mt-4 flex items-center justify-between">
-            <span className="border-b w-1/5 lg:w-1/4"></span>
-            <Link href="/loginWithEmail" className="text-xs text-center text-gray-500 uppercase">or login with email</Link>
-            <span className="border-b w-1/5 lg:w-1/4"></span>
+    useEffect(() => {
+      if(bookAnEventUser.email.length > 0 && bookAnEventUser.password.length > 0)
+      {
+        setButtonDisabled(false);
+      } else {
+        setButtonDisabled(true);
+      }
+    }, [bookAnEventUser]);
+
+    return (
+        <div>
+            
+<div className="grid h-auto grid-cols-1 gap-[0px] md:h-screen md:grid-cols-2">
+  <div className="flex flex-col items-center justify-center bg-white">
+    <div className="px-5 md:px-10">
+      <div className="py-16 md:py-24 lg:py-32">
+        <div className="max-w-[480px] text-center md:max-w-[480px]">
+        <div>
+        <a href="http://localhost:3000">
+        <img alt="" src="https://i.ibb.co/9gCbPKK/logo.png" className="w-48  mx-auto mb-20" />
+    </a>
+</div>
+          <h2 className="mb-8 text-3xl font-bold md:mb-12 md:text-5xl lg:mb-16">{Loading ? "Processing" : "Event Attendee"}</h2>
+          <div className="mx-auto mb-4 max-w-[400px] pb-4">
+            <form name="wf-form-password" method="get">
+              <div className="relative">
+                <img alt="" src="https://assets.website-files.com/6357722e2a5f19121d37f84d/6357722e2a5f190b7e37f878_EnvelopeSimple.svg" className="absolute bottom-0 left-[5%] right-auto top-[26%] inline-block max-w-full" />
+                <input type="email" className="m-0 mb-4 block h-9 w-full border border-black bg-[#f2f2f7] px-3 py-6 pl-14 align-middle text-sm text-[#333333] focus:border-[#3898ec]" 
+                id = "email"
+                value = {bookAnEventUser.email} 
+                name="name" 
+                placeholder="Email Address" 
+                onChange={(e) => setBookAnEventUser({...bookAnEventUser, email: e.target.value})}
+                required autoComplete="email" />
+                <div></div>
+                <div></div>
+              </div>
+              <div className="relative mb-4">
+               
+                <img alt="" src="https://assets.website-files.com/6357722e2a5f19121d37f84d/6357722e2a5f19601037f879_Lock-2.svg" className="absolute bottom-0 left-[5%] right-auto top-[26%] inline-block max-w-full" />
+                <input type="password" className="m-0 mb-4 block h-9 w-full border border-black bg-[#f2f2f7] px-3 py-6 pl-14 align-middle text-sm text-[#333333] focus:border-[#3898ec]" 
+                name="password" 
+                id= "password"
+                placeholder="Password (min 8 characters)" 
+                onChange={(e) => setBookAnEventUser({...bookAnEventUser, password: e.target.value})}
+                required autoComplete=" " />
+                <div></div>
+                <div></div>
+              </div>
+              <p className="text-sm text-[#636262]">Don't have an account? <Link href="./signup" className="text-sm font-bold text-black">Sign up now </Link>
+          </p>
+
+              
+              <a href="#" className="flex max-w-full grid-cols-2 flex-row items-center justify-center bg-[#276ef1] px-8 py-4 text-center font-semibold text-white transition [box-shadow:rgb(171,_196,_245)_-8px_8px] hover:[box-shadow:rgb(171,_196,_245)_0px_0px]">
+                <div
+                onClick={onBookAnEventUserLogin}
+                className="mr-6 font-bold">Log in</div>
+                <div className="h-4 w-4 flex-none">
+                  <svg fill="currentColor" viewBox="0 0 20 21" xmlns="http://www.w3.org/2000/svg">
+                    <title>Arrow Right</title>
+                    <polygon points="16.172 9 10.101 2.929 11.515 1.515 20 10 19.293 10.707 11.515 18.485 10.101 17.071 16.172 11 0 11 0 9"></polygon>
+                  </svg>
+                </div>
+              </a>
+            </form>
           </div>
-          <div className="mt-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">Email Address</label>
-            <input
-              className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-black rounded py-2 px-4 block w-full appearance-none"
-              type="email"
-              onChange={(e) => setBookAnEventUser({ ...bookAnEventUser, email: e.target.value })}
-              required
-              autoComplete="email"
-            />
-          </div>
-          <div className="mt-4">
-            <div className="flex justify-between">
-              <label className="block text-gray-700 text-sm font-bold mb-2">Password</label>
-              <a href="#" className="text-xs text-gray-500">Forget Password?</a>
-            </div>
-            <input
-              className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-black rounded py-2 px-4 block w-full appearance-none"
-              type="password"
-              onChange={(e) => setBookAnEventUser({ ...bookAnEventUser, password: e.target.value })}
-              required
-              autoComplete="password"
-            />
-          </div>
-          <div className="mt-8">
-            <button
-              onClick={onBookAnEventUserLogin}
-              className="bg-blue text-white font-bold py-2 px-4 w-full rounded hover:bg-gray-600"
-            >
-              Login
-            </button>
-          </div>
-          <div className="mt-4 flex items-center justify-between">
-            <span className="border-b w-1/5 md:w-1/4"></span>
-            <Link href="/BookAnEvent/signup" className="text-xs text-black uppercase">or sign up</Link>
-            <span className="border-b w-1/5 md:w-1/4"></span>
-          </div>
+        
+        
         </div>
       </div>
     </div>
-  );
+  </div>
+  <div className="flex flex-col items-center justify-center bg-[#f2f2f7]">
+   
+          <div>
+            <img src="https://i.ibb.co/NCCkxvh/login.png" alt="" className="inline-block max-w-full" />
+          </div>
+        
+        </div>
+      </div>
+    </div>
+  
+    )
 }

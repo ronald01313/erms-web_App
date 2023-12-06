@@ -3,6 +3,9 @@
 /* eslint-disable @next/next/no-img-element */
 import { useRouter } from 'next/navigation';
 import React from 'react';
+import { useState } from 'react';
+import link from 'next/link';
+
 
 const EventSuccessfullySave = () => {
   const router = useRouter();
@@ -11,40 +14,72 @@ const EventSuccessfullySave = () => {
     router.push('/ViewEventPage');
   };
 
+
+
+
+
   return (
     <>
-      <div className="flex min-h-screen items-center justify-center bg-gray-100">
-        <div className="rounded-lg bg-gray-50 px-16 py-14">
-          <div className="flex justify-center">
-            <div className="rounded-full bg-green-200 p-6">
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-500 p-4">
-                <img
-                  src="https://i.ibb.co/BTwyS1V/2023446.png"
-                  className="h-10 w-10 text-white"
-                />
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M4.5 12.75l6 6 9-13.5"
-                />
-              </div>
-            </div>
+    <link
+      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <div
+      className="min-w-screen h-screen animated fadeIn faster fixed left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover"
+      style={{
+        backgroundImage:
+          'url(https://images.unsplash.com/photo-1623600989906-6aae5aa131d4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1582&q=80)',
+      }}
+      id="modal-id"
+    >
+      <div className="absolute bg-black opacity-80 inset-0 z-0"></div>
+      <div className="w-full max-w-lg p-5 relative mx-auto my-auto rounded-xl shadow-lg bg-white">
+        <div className="">
+          <div className="text-center p-5 flex-auto justify-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-4 h-4 -m-1 flex items-center text-red-500 mx-auto"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-16 h-16 flex items-center text-red-500 mx-auto"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                clipRule="evenodd"
+              />
+            </svg>
+            <h2 className="text-xl font-bold py-4">Congratulations!</h2>
+            <p className="text-sm text-gray-500 px-8">
+              You are Successfully created an Event
+            </p>
           </div>
-          <h3 className="my-4 text-center text-3xl font-semibold text-gray-700">
-            Congratulation!
-          </h3>
-          <p className="w-[230px] text-center font-normal text-gray-600">
-            You have successfully created an Event
-          </p>
-          <button
-            onClick={handleViewEvent}
-            className="mx-auto mt-10 block rounded-xl border-4 border-transparent bg-blue px-6 py-3 text-center text-base font-medium text-orange-100 outline-8 hover:outline hover:duration-300"
-          >
-            View Event
-          </button>
+          <div className="text-center mt-4">
+            <button
+              onClick={handleViewEvent}
+              className="mb-2 md:mb-0 bg-green-500 border border-red-500 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-red-600"
+            >
+              View Event
+            </button>
+          </div>
         </div>
       </div>
-    </>
+      </div>
+    
+  </>
   );
 };
 

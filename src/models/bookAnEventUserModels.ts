@@ -36,8 +36,8 @@ const bookAnEventUserSchema = new mongoose.Schema({
 
 })
 
-const bookAnEventUser = mongoose.models.bookAnEventUser || mongoose.model
-("bookAnEventUser", bookAnEventUserSchema);
+const bookAnEventUser = mongoose.models.bookaneventusers || mongoose.model
+("bookaneventusers", bookAnEventUserSchema);
 
 export default bookAnEventUser;
 

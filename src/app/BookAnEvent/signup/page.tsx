@@ -1,200 +1,192 @@
-'use client'
-/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import { useState, useEffect } from "react";
+"use client";
+import Link from "next/link";
+import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import toast from "react-hot-toast";
+import error from "next/error";
 
 
 export default function BookAnEventSignUpPage() {
-    
-  const router = useRouter();
 
-  const [bookAnEventUser, setBookAnEventUser] = useState({
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
+    // Create a toaster object
+  
+    const router = useRouter();
+     
+    const [bookAnEventUser, setBookAnEventUser] = React.useState({
+        username: "",
+        email: "",
+        password: "",
+        confirmPassword: ""
+        
+    })
+  
+    const [buttonDisabled, setButtondissabled] = React.
+    useState(false);
 
-
-
-  const onBookAnEventSignup = async () => {
-    try {
-      const response = await axios.post('/api/user/BookAnEventSignUp', bookAnEventUser);
-      console.log("Sign up Success", response.data);
-
-      toast.success('Sign up successful');
-      alert("Sign up successful");
-      router.push("/BookAnEvent/login");
-    } catch (error: any) {
-      console.error("Sign up Failed", error.message);
-      alert("Signup Failed")
-      toast.error(error.message);
-      
-    }
-  };
+    const [Loading, setLoading] = React.useState(false); // Define the 'loading' state
 
 
+    const onEventOrgSignup = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.post('/api/user/BookAnEventSignUp', bookAnEventUser);
+        console.log("Sign up Success", response.data);
+  
+        if (response.data.success) {
+          window.alert('Sign-up Successful!'); // Alert for successful sign-up
+          router.push("/BookAnEvent/login");
+        } else if (response.data.error === error) {
+          window.alert('Email address is already registered. Please use a different email.'); // Alert for existing email
+        } else {
+          window.alert('Sign-up Failed'); // Alert for other sign-up failures
+        }
+      } catch (error: any) {
+        console.error("Sign up Failed", error.message);
+        window.alert(error.message); // Alert for API call error
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const isPasswordMatch = bookAnEventUser.password === bookAnEventUser.confirmPassword;
+    useEffect(() => {
+      if(bookAnEventUser.email.length > 0 && bookAnEventUser.password.length > 0 && bookAnEventUser.username.length > 0) {
+        setButtondissabled(false);
+      } else {
+        setButtondissabled(true);
+      }
+    }, [bookAnEventUser]);
 
-  return (
-    <>
-<div className="min-h-screen bg-white text-gray-900 flex justify-center">
-    <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
-        <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
-            <div>
-                <img src="https://i.ibb.co/9gCbPKK/logo.png"
-                    className="w-32 mx-auto" />
-            </div>
-            <div className="mt-12 flex flex-col items-center">
-                <h1 className="text-2xl xl:text-3xl font-extrabold">
-                    Sign up
-                </h1>
-                <div className="w-full flex-1 mt-8">
-                    <div className="flex flex-col items-center">
-                        <button
-                            className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline">
-                            <div className="bg-white p-2 rounded-full">
-                                <svg className="w-4" viewBox="0 0 533.5 544.3">
-                                    <path
-                                        d="M533.5 278.4c0-18.5-1.5-37.1-4.7-55.3H272.1v104.8h147c-6.1 33.8-25.7 63.7-54.4 82.7v68h87.7c51.5-47.4 81.1-117.4 81.1-200.2z"
-                                        fill="#4285f4" />
-                                    <path
-                                        d="M272.1 544.3c73.4 0 135.3-24.1 180.4-65.7l-87.7-68c-24.4 16.6-55.9 26-92.6 26-71 0-131.2-47.9-152.8-112.3H28.9v70.1c46.2 91.9 140.3 149.9 243.2 149.9z"
-                                        fill="#34a853" />
-                                    <path
-                                        d="M119.3 324.3c-11.4-33.8-11.4-70.4 0-104.2V150H28.9c-38.6 76.9-38.6 167.5 0 244.4l90.4-70.1z"
-                                        fill="#fbbc04" />
-                                    <path
-                                        d="M272.1 107.7c38.8-.6 76.3 14 104.4 40.8l77.7-77.7C405 24.6 339.7-.8 272.1 0 169.2 0 75.1 58 28.9 150l90.4 70.1c21.5-64.5 81.8-112.4 152.8-112.4z"
-                                        fill="#ea4335" />
-                                </svg>
-                            </div>
-                            <span className="ml-4">
-                                Sign Up with Google
-                            </span>
-                        </button>
+    const isPasswordMatch = bookAnEventUser.password === bookAnEventUser.confirmPassword;
 
-                        <button
-                            className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline mt-5">
-                            <div className="bg-white p-1 rounded-full">
-                                <svg className="w-6" viewBox="0 0 32 32">
-                                    <path fill-rule="evenodd"
-                                        d="M16 4C9.371 4 4 9.371 4 16c0 5.3 3.438 9.8 8.207 11.387.602.11.82-.258.82-.578 0-.286-.011-1.04-.015-2.04-3.34.723-4.043-1.609-4.043-1.609-.547-1.387-1.332-1.758-1.332-1.758-1.09-.742.082-.726.082-.726 1.203.086 1.836 1.234 1.836 1.234 1.07 1.836 2.808 1.305 3.492 1 .11-.777.422-1.305.762-1.605-2.664-.301-5.465-1.332-5.465-5.93 0-1.313.469-2.383 1.234-3.223-.121-.3-.535-1.523.117-3.175 0 0 1.008-.32 3.301 1.23A11.487 11.487 0 0116 9.805c1.02.004 2.047.136 3.004.402 2.293-1.55 3.297-1.23 3.297-1.23.656 1.652.246 2.875.12 3.175.77.84 1.231 1.91 1.231 3.223 0 4.61-2.804 5.621-5.476 5.922.43.367.812 1.101.812 2.219 0 1.605-.011 2.898-.011 3.293 0 .32.214.695.824.578C24.566 25.797 28 21.3 28 16c0-6.629-5.371-12-12-12z" />
-                                </svg>
-                            </div>
-                            <span className="ml-4">
-                                Sign Up with GitHub
-                            </span>
-                        </button>
-                    </div>
 
-                    <div className="my-12 border-b text-center">
-                        <div
-                            className="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2">
-                            Or sign up with e-mail
-                        </div>
-                    </div>
-
-                
-                    
-               
-                    <input
-                            className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-black placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
-                            type="username" 
-                            placeholder="username"
-                            name="username" 
-                            required autoComplete="username" 
-                            onChange={(e) =>
-                                setBookAnEventUser({
-                                    ...bookAnEventUser,
-                                    username: e.target.value,
-                                })
-                                }
-                            />
-                        <input
-                            className="mt-4 w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-black placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
-                            type="email" 
-                            placeholder="Email"
-                            name="email" 
-                            required autoComplete="email"
-                            onChange={(e) =>
-                                setBookAnEventUser({
-                                    ...bookAnEventUser,
-                                    email: e.target.value,
-                                })
-                                }
-                            />
-                        <input
-                            className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-black placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-                            type="password"
-                             placeholder="Password"
-                             name="password"
-                             required autoComplete="password"
-                             onChange={(e) =>
-                                setBookAnEventUser({
-                                    ...bookAnEventUser,
-                                    password: e.target.value,
-                                })
-                                }
-                             />
-                             <input
-                                className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-black placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-                                type="password"
-                                placeholder="Confirm Password"
-                                name="confirmPassword"
-                                value={bookAnEventUser.confirmPassword}
-                                onChange={(e) =>
-                                setBookAnEventUser({
-                                    ...bookAnEventUser,
-                                    confirmPassword: e.target.value,
-                                })
-                                }
-                                required
-                                autoComplete="confirm-password"
-                                                />
-                                                 <div></div>
+    return (
+        <div>
+            
+<div className="grid h-auto grid-cols-1 gap-[0px] md:h-screen md:grid-cols-2">
+  <div className="flex flex-col items-center justify-center bg-white">
+    <div className="px-8 md:px-12 lg:px-16">
+      <div className="py-0 md:py-0 lg:py-0">
+        <div className="max-w-[480px] text-center md:max-w-[480px] mb-24">
+        <div>
+        <a href="http://localhost:3000">
+        <img alt="" src="https://i.ibb.co/9gCbPKK/logo.png" className="w-48  mx-auto mb-20" />
+    </a>
+</div>
+<h2 className="mt-4 mb-8 text-3xl font-bold md:mb-12 md:text-5xl lg:mb-50">{Loading ? "Processing" : "Event Attendee"}</h2>
+<div className="mx-auto mb-4 max-w-[400px] pb-4">
+            <form name="wf-form-password" method="get">
+              <div className="relative mb-4">
+              <img alt="" src="" className="absolute bottom-0 left-[5%] right-auto top-[26%] inline-block max-w-full" />
+              <input type="text" className="m-0 mb-4 block h-9 w-full border border-black bg-[#f4f2f7] px-3 py-6 pl-14 align-middle text-sm text-[#333333] focus:border-[#3898ec]" 
+                id = "username"
+                value = {bookAnEventUser.username} 
+                name="username" 
+                placeholder="Username" 
+                onChange={(e) => setBookAnEventUser({...bookAnEventUser, username: e.target.value})}
+                required autoComplete="username" />
                 <div></div>
-                                            {bookAnEventUser.password !== '' &&
-                            bookAnEventUser.confirmPassword !== '' &&
-                            !isPasswordMatch && (
-                            <div className="text-red-500">Passwords do not match.</div>
-                            )}
-                          
-                        <button onClick={onBookAnEventSignup}
-                            className="mt-5 tracking-wide font-semibold bg-blue text-white w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
-                            <svg className="w-6 h-6 -ml-2" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
-                                <circle cx="8.5" cy="7" r="4" />
-                                <path d="M20 8v6M23 11h-6" />
-                            </svg>
-                            <span className="ml-3">
-                                Sign Up
-                            </span>
-                        </button>
-                                                            <div className="mt-4 text-center text-sm text-[#636262]">
-                                    Already have an account?{" "}
-                                    <a href="/BookAnEvent/login">
-                                        <a className="text-sm font-bold text-black">Login now</a>
-                                    </a>
-                                    </div>
+                <div></div>
+              </div>
 
-                    </div>
-                </div>
-            </div>
+              <div className="relative mb-4">
+                <img alt="" src="https://assets.website-files.com/6357722e2a5f19121d37f84d/6357722e2a5f190b7e37f878_EnvelopeSimple.svg" className="absolute bottom-0 left-[5%] right-auto top-[26%] inline-block max-w-full" />
+                <input type="email" className="m-0 mb-4 block h-9 w-full border border-black bg-[#f4f2f7] px-3 py-6 pl-14 align-middle text-sm text-[#333333] focus:border-[#3898ec]" 
+                id = "email"
+                value = {bookAnEventUser.email} 
+                name="email" 
+                placeholder="Email Address" 
+                onChange={(e) => setBookAnEventUser({...bookAnEventUser, email: e.target.value})}
+                required autoComplete="email" />
+                
+                <div></div>
+                <div></div>
+              </div>
+              <div className="relative mb-4">
+                <img alt="" src="https://assets.website-files.com/6357722e2a5f19121d37f84d/6357722e2a5f19601037f879_Lock-2.svg" className="absolute bottom-0 left-[5%] right-auto top-[26%] inline-block max-w-full" />
+                <input type="password" className="m-0 mb-4 block h-9 w-full border border-black bg-[#f2f2f7] px-3 py-6 pl-14 align-middle text-sm text-[#333333] focus:border-[#3898ec]" 
+                name="password" 
+                id= "password"
+                placeholder="Password (min 8 characters)" 
+                onChange={(e) => setBookAnEventUser({...bookAnEventUser, password: e.target.value})}
+                required autoComplete="new-password" />
+                <div></div>
+                <div></div>
+              </div>
+              <div className="relative mb-4">
+                <img alt="" src="https://assets.website-files.com/6357722e2a5f19121d37f84d/6357722e2a5f19601037f879_Lock-2.svg" className="absolute bottom-0 left-[5%] right-auto top-[26%] inline-block max-w-full" />
+                <input type="password" className="m-0 mb-4 block h-9 w-full border border-black bg-[#f2f2f7] px-3 py-6 pl-14 align-middle text-sm text-[#333333] focus:border-[#3898ec]" 
+                name="confirmPassword" 
+                id= "confirmPassword"
+                placeholder="Confirm Password" 
+                onChange={(e) => setBookAnEventUser({...bookAnEventUser, confirmPassword: e.target.value})}
+                required />
+                <div></div>
+                <div></div>
+                
+                {bookAnEventUser.password !== '' &&
+        bookAnEventUser.confirmPassword !== '' &&
+        !isPasswordMatch && (
+          <div className="text-red-500">Passwords do not match.</div>
+        )}
+    
+              </div>
+              
+             
+
+              
+             
+              <p className="text-sm text-[#636262]">Already have an account? <Link href="./login" className="text-sm font-bold text-black">Login now </Link>
+          </p>
+
+          
+           
+       
+          <a
+  href="#"
+  className={`flex max-w-full grid-cols-2 bg-[#276ef1] flex-row items-center justify-center ${
+    buttonDisabled ? "bg-gray-300 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
+  } px-8 py-4 text-center font-semibold text-white transition ${
+    buttonDisabled ? "" : "shadow-md"
+  }`}
+  onClick={onEventOrgSignup}
+>
+  <div className="mr-6 font-bold col">
+    {buttonDisabled ? "Sign Up" : "Sign Up"}
+    
+  </div>
+  <div className="h-4 w-4 flex-none">
+    <svg
+      fill="sky-blue-500"
+      viewBox="0 0 20 21"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <title>Arrow Right</title>
+      <polygon points="16.172 9 10.101 2.929 11.515 1.515 20 10 19.293 10.707 11.515 18.485 10.101 17.071 16.172 11 0 11 0 9"></polygon>
+    </svg>
+  </div>
+</a>
+            </form>
+          </div>
+        
         </div>
-        <div className="flex-1 bg-gray text-center hidden lg:flex">
-  <div
-    className="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat"
-    style={{ backgroundImage: 'url("https://storage.googleapis.com/devitary-image-host.appspot.com/15848031292911696601-undraw_designer_life_w96d.svg")' }}
-  ></div>
-</div>
+      </div>
+    </div>
+  </div>
 
-</div>
-    </>
-  )
+
+  <div className="flex flex-col items-center justify-center bg-[#f2f2f7]">
+   
+      <div>
+        
+            <img src="https://i.ibb.co/rbvX1fK/signup.png" alt="" className="inline-block max-w-full" />
+          </div>
+       
+        </div>
+      </div>
+    </div>
+    )
 }
+
+
+
