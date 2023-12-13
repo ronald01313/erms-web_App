@@ -10,8 +10,8 @@ export async function GET(request: NextRequest) {
 
     try {
         
-        const user = await event.findOne({_id: event}).
-        select("-password");
+        const User = await event.findOne({_id: event}).
+        select("-eventName");
         return NextResponse.json({
             message: "Event found",
             data: event

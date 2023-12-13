@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-export async function connect() {
+export async function connectAttendee() {
     try {
         mongoose.connect(process.env.MONGO_ATTENDEE!);
 

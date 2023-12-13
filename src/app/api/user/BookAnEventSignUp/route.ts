@@ -1,9 +1,9 @@
-import { connect } from "@/dbConfig/eventAttendeesConfig";
+import { connectAttendee } from "@/dbConfig/eventAttendeesConfig";
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
 import bookAnEventUser from "@/models/bookAnEventUserModels";
 
-connect();
+connectAttendee();
 
 export async function POST(request: NextRequest) {
   try {

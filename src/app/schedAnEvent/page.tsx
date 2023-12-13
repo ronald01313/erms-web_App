@@ -1,33 +1,20 @@
 "use client"
 
-import { SetStateAction, useEffect, useState } from 'react';
-import Event from '@/models/eventFormDataModels';
-import { connect } from '@/dbConfig/eventFormData';
 
-connect()
 
 export default function SchedAnEventPage() {
 
-    const [eventTypes, setEventTypes] = useState([]);
-
-    useEffect(() => {
-        Event.find({}, 'eventName', function(err: any, events: any) {
-            if (err) {
-                console.error(err);
-                return;
-            }
-            if (events) {
-                setEventTypes(events.map((event: { eventName: any; }) => event.eventName));
-            }
-        });
-    }, []);
+  
 
 
 
     return (
-      <div className="flex items-center justify-center p-12">
+     
 
+      <div className="flex items-center justify-center p-12">
+       
         <div className="mx-auto w-full max-w-[550px]">
+       
           <form action="https://formbold.com/s/FORM_ID" method="POST">
             <div className="-mx-3 flex flex-wrap">
               <div className="w-full px-3 sm:w-1/2">
@@ -80,9 +67,7 @@ export default function SchedAnEventPage() {
                   id="eventType"
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 >
-                  {eventTypes.map((eventType, index) => (
-                    <option key={index} value={eventType}>{eventType}</option>
-                  ))}
+                 
                 </select>
               </div>
             </div>
@@ -107,6 +92,7 @@ export default function SchedAnEventPage() {
               </div>
             </div>
           </div>
+          
 
 
 
