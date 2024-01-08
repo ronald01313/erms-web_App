@@ -40,7 +40,7 @@ export default function ourTeamPage() {
             </div>
           </div>
           <div className="grid-flow-row grid flex-row justify-center gap-6 border border-solid border-[#dfdfdf] bg-white p-8 max-[991px]:mx-auto max-[991px]:max-w-[640px] max-[767px]:px-6 max-[767px]:py-8 max-[479px]:w-full rounded-md grid-cols-1 md:grid-cols-2">
-            <img src="https://i.ibb.co/x3BRcpN/rhd.png" alt="RHD" className="inline-block h-64 w-full max-w-full object-cover"/>
+            <img src="./rhd.png" alt="RHD" className="inline-block h-64 w-full max-w-full object-cover"/>
             <div className="">
               <div className="text-xl font-semibold">Dimatangal Ronald Hondolero</div>
               <div className="font-semibold text-[#647084] mb-4">Web Developer</div>

@@ -1,6 +1,6 @@
 // Import necessary modules and models
 import { connect } from "@/dbConfig/dbConfig";
-import BookFormData from "@/models/bookFormDataModels";
+import reservedSchedData from "@/models/bookFormDataModels";
 import { NextRequest, NextResponse } from 'next/server';
 
 // Establish a connection to the database
@@ -10,28 +10,32 @@ export async function POST(request: NextRequest) {
   try {
     const reqBody = await request.json();
     const {
-        fullName,
-        contactNumber,
-        eventCategory,
-        eventSubCategory,
-        image
+      firstName,
+      lastName,
+      contactNumber,
+      eventCategory,
+      image,
+      date,
+      time
     } = reqBody;
 
     // Validate the request data
-    if (!fullName || !contactNumber || !eventCategory ||!eventSubCategory || !image) {
+    if (!firstName || !lastName || !contactNumber || !eventCategory || !image || !date || !time) {
       return NextResponse.json(
         { error: "All required fields must be filled" },
         { status: 400 }
       );
     }
 
-    // Create a new eventFormData document
-    const newbookFormData = new BookFormData({
-      fullName,
+    // Create a new reservedSchedData document
+    const newbookFormData = new reservedSchedData({
+      firstName,
+      lastName,
       contactNumber,
       eventCategory,
-      eventSubCategory,
-      image
+      image,
+      date,
+      time
     });
 
     // Save the event data to the database
@@ -56,5 +60,5 @@ export async function POST(request: NextRequest) {
       { error: "Internal Server Error" },
       { status: 500 }
     );
-  }
+  } 
 }

@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
     const user = await bookAnEventUser.findOne({ email });
     if (!user) {
       return NextResponse.json(
-        { error: "Event User Profile does not exist" },
+        { error: "Attendee User Profile does not exist" },
         { status: 400 }
       );
     }

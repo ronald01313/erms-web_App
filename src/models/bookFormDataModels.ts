@@ -1,23 +1,40 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose from 'mongoose';
 
-// Interface representing the document in MongoDB
-interface IBookFormData extends Document {
-  fullName: string;
-  contactNumber: string;
-  eventCategory: string;
-  eventSubCategory: string;
-  image: File | null;
-}
-
-// Define the schema for bookFormData
-const bookFormDataSchema: Schema = new Schema({
-  fullName: { type: String, required: true },
-  contactNumber: { type: String, required: true },
-  eventCategory: { type: String, required: true },
-  eventSubCategory: { type: String, required: true },
-  image: { type: Schema.Types.Mixed, default: null } // Assuming File is a complex object or binary data, you can use Mixed type
+const bookFormDataSchema = new mongoose.Schema({
+  fullName: {
+    type: String,
+    required: true,
+  },
+  contactNumber: {
+    type: String,
+    required: true,
+  },
+  eventCategory: {
+    type: String,
+    required: true,
+  },
+  eventSubCategory: {
+    type: String,
+    required: true,
+  },
+  image: {
+    type: File, // Assuming the image is stored as a URL or path
+    required: true, // Update as needed based on your requirements
+  },
+  date: {
+    type: Date, // Date field
+    required: true,
+  },
+  time: {
+    type: String, // String for time (you can adjust the type as needed)
+    required: true,
+  },
 });
 
-// Define and export the model
-const BookFormData = mongoose.model<IBookFormData>('BookFormData', bookFormDataSchema);
-export default BookFormData;
+
+
+
+const reserveSchedData  = mongoose.models.reserveSchedData || mongoose.model
+("ReserveSchedData", bookFormDataSchema);
+
+export default reserveSchedData;

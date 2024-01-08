@@ -61,7 +61,9 @@ export default function EventOrgUserProfilePage({ params }: any) {
     
     
     
-
+    const viewEvents = () => {
+        router.push('/ViewEventPage'); // Navigate to the ViewEvent page
+      };
 
 
  return (
@@ -74,8 +76,14 @@ export default function EventOrgUserProfilePage({ params }: any) {
         className="bg-purple mt-4 hover:bg-white text-white font-bold py-2 px-4 rounded float-right ">
            Logout 
         </button>
-          </nav>
-          </div>
+
+          {/* New button for viewing events */}
+          <button onClick={viewEvents} className="bg-purple mt-4 hover:bg-white text-white font-bold py-2 px-4 rounded float-right mx-2">
+            View Events
+          </button>
+        </nav>
+      </div>
+
     <div className="bg-cover bg-no-repeat bg-center" style={{ backgroundImage: "url('https://i.ibb.co/VSf8ZYF/EVENT-DETAILS.png')" }}>
       <div className="min-h-screen flex items-center justify-center">
 

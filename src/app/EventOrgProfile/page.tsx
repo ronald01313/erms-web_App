@@ -26,16 +26,19 @@ export default function EventOrgProfilePage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <Toaster /> {/* Add the Toaster component for client-side notifications */}
-      <h1>Profile</h1>
+      <h1 className="text-4xl font-bold text-center mt-8">Thank you for Signing up!</h1>
+
       <hr />
-      <p>Dashboard</p>
+      <hr />
+      <hr />
+     
      
       <h2 className="mt-4 inline-block relative">
         {data === 'nothing' ? (
-          <span className="bg-blue text-white py-2 px-4 rounded-lg">Nothing</span>
+          <span className="text-black bg-purple py-2 px-4 rounded-lg"></span>
         ) : (
           <Link href={`/EventOrgProfile/${data}`}>
-            <span className="bg-blue text-blue-50 py-2 px-4 mt-4 rounded-lg hover:bg-blue-600">
+            <span className="bg-blue text-blue-50 py-2 px-4 mt-4 rounded-lg hover:bg-purple">
               {data}
             </span>
           </Link>
@@ -44,7 +47,7 @@ export default function EventOrgProfilePage() {
 
       <hr />
     
-      <button onClick={getUserDetails} className="bg-purple mt-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      <button onClick={getUserDetails} className="bg-blue mt-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
         Click to Open your Dashboard
       </button>
     </div>

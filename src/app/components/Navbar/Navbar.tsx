@@ -14,7 +14,7 @@ export default function Navbar() {
   <div className="px-5 md:px-10">
     <div className="mx-auto grid w-full max-w-7xl auto-cols-auto grid-cols-[auto_max-content] items-center justify-stretch gap-[0px] lg:grid-cols-[176px_auto]">
     <a href="./" target="_blank" className="relative flex items-center text-[#333333] max-[991px]:mr-auto max-[767px]:pl-0">
-  <img src="https://i.ibb.co/YQqcgnn/logo.png" alt="ERMS" className="inline-block max-h-6 max-w-full" />
+  <img src="./logo.png" alt="ERMS" className="inline-block max-h-6 max-w-full" />
   <span className="ml-2 text-white text-sm color">ERMS</span>
 </a>
 

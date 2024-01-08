@@ -65,7 +65,7 @@ export default function BookAnEventLoginPage() {
         <div className="max-w-[480px] text-center md:max-w-[480px]">
         <div>
         <a href="http://localhost:3000">
-        <img alt="" src="https://i.ibb.co/9gCbPKK/logo.png" className="w-48  mx-auto mb-20" />
+        <img alt="" src="./logo.png" className="w-48  mx-auto mb-20" />
     </a>
 </div>
           <h2 className="mb-8 text-3xl font-bold md:mb-12 md:text-5xl lg:mb-16">{Loading ? "Processing" : "Event Attendee"}</h2>

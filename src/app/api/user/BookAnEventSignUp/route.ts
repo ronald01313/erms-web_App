@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
     // TODO: Send a verification email
 
     return NextResponse.json({
-      message: "Event User Profile created Successfully",
+      message: "Attendee User Profile created Successfully",
       success: true,
       savedBookAnEventUser,
     });
